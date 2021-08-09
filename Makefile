@@ -12,7 +12,6 @@ setup:
 
 install:
 	# This should be run from inside a virtualenv
-	source ~/.devops/bin/activate
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
 
