@@ -10,7 +10,7 @@ dockerpath="kelphils/udacity-project"
 
 # Step 2:  
 # Authenticate & tag
-docker login -u kelphils -p 7998b869-8e9d-4af5-8e75-563c62389f9d
+docker login -u kelphils -p c539cb92-42f3-47a4-a2e4-256b32d1421a
 docker tag proj-app kelphils/udacity-project
 echo "Docker ID and Image: $dockerpath"
 
