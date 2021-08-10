@@ -1,15 +1,7 @@
-<include a CircleCI status badge, here>
 
-## Project Overview
 
-In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API. 
-
-You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
-
-### Project Tasks
-
-Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
-* Test your project code using linting
+Project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
+* Test the project code using linting
 * Complete a Dockerfile to containerize this application
 * Deploy your containerized application using Docker and make a prediction
 * Improve the log statements in the source code for this application
@@ -17,11 +9,6 @@ Your project goal is to operationalize this working, machine learning microservi
 * Deploy a container using Kubernetes and make a prediction
 * Upload a complete Github repo with CircleCI to indicate that your code has been tested
 
-You can find a detailed [project rubric, here](https://review.udacity.com/#!/rubrics/2576/view).
-
-**The final implementation of the project will showcase your abilities to operationalize production microservices.**
-
----
 
 ## Setup the Environment
 
@@ -34,9 +21,63 @@ You can find a detailed [project rubric, here](https://review.udacity.com/#!/rub
 2. Run in Docker:  `./run_docker.sh`
 3. Run in Kubernetes:  `./run_kubernetes.sh`
 
-### Kubernetes Steps
 
-* Setup and Configure Docker locally
+* Setup Makefile. run "make" and run "make install"
+
+* The steps in the makefile can found below as you can "cd" into the directory to see the commands
+
+# Create and activate a virtual environment
+# Install dependencies in requirements.txt and
+# Dockerfile should pass hadolint
+# app.py should pass pylint
+
+* Setup and Configure Docker locally. 
+
+# Install the most recent Docker Engine package on amazon linux 2. run "sudo amazon-linux-extras install docker"
+# Start the Docker service. run "sudo service docker start"
+# Add the ec2-user to the docker group so you can execute Docker commands without using sudo. run "sudo usermod -a -G docker ec2-user"
+# Verify that the ec2-user can run Docker commands without sudo. run "docker info"
+# To create a Docker image of a simple web application in yhe same directory. run "touch Dockerfile"
+
+
 * Setup and Configure Kubernetes locally
-* Create Flask app in Container
-* Run via kubectl
+
+# Download the latest release with the command. run "curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+# Validate the kubectl binary against the checksum file: run "echo "$(<kubectl.sha256) kubectl" | sha256sum --check" if valid, the output is: "kubectl: OK"
+# Install kubectl. run "sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl"
+# Test to ensure the version you installed is up-to-date: run "kubectl version --client"
+# Next install minikube. run "curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64"
+# And run "sudo install minikube-linux-amd64 /usr/local/bin/minikube" 
+
+* Create Flask app in Container. run "docker build ."
+
+* The steps in the Dockerfile can found below as you can "cd" into the directory to see the commands
+  
+#  Create the WORKDIR
+# Copy source code to working directory
+# Install packages from requirements.txt
+# hadolint ignore=DL3013
+# Expose port 80
+# Run app.py at container launch
+
+OR
+
+* Run "./run_docker.sh"  to automatically run the Dockerfile
+
+
+* Run the "run_upload.sh" script to automatically upload to the dockerhub
+
+* Run kubectl locally. run "minikube start"
+# Then do the next step
+
+* Run via kubectl. run "run_kubernetes.sh" to automatically create a prod name automatically
+
+* The steps in the run_kubernetes.shell script can found below as you can "cd" into the directory to see the commands
+
+# specify dockerpath=<>
+# Run the Docker Hub container with kubernetes
+# List kubernetes pods
+# Forward the container port to a host
+
+
+The log output of different steps are saved in the specified .txt files as required and .circleci is also integrated to automatically lint the app and dockerfile also perform the required steps to complete the continuous integration.
